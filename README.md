@@ -11,8 +11,8 @@ I created this project while learning Python to practice working with object-ori
 
 ## How to Play 🎮  
 - **Left player:**  
-  - Move up: `W`  
-  - Move down: `S`  
+  - Move up: `S`  
+  - Move down: `X`  
 - **Right player:**  
   - Move up: `↑` (Up Arrow)  
   - Move down: `↓` (Down Arrow)  
