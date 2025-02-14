@@ -47,7 +47,7 @@ I created this project while learning Python to practice working with object-ori
 * Reach the finish line at the top to advance to the next level.
 * The speed of the cars increases as levels progress.
 * If you reach level 4, you win the game!
-* If you lose, you can restart by pressing Y or quit by pressing N.
+* If you lose, you can restart by pressing 'y' or quit by pressing 'n'.
 
 ## Project Structure
 
