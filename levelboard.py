@@ -11,7 +11,7 @@ class LevelBoard(Turtle):
     def update_lavel(self):
         self.clear()
         self.goto(-300, 250)
-        self.write(f"Level: {self.level}", align="center", font=(FONT)
+        self.write(f"Level: {self.level}", align="center", font=FONT)
 
     def level_plus(self):
         self.level += 1
@@ -28,4 +28,4 @@ class LevelBoard(Turtle):
 
     def ask_restart(self):
         self.goto(0, 100)
-        self.write("Do you want to play again? (Press 'y')\nFor exit click on the screen or press 'n'.", align="center", font=("Courier", 20, "normal"))
+        self.write("Do you want to play again? (Press 'y')\nFor exit click on the screen or press 'n'.", align="center", font=FONT)
