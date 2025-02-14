@@ -1,66 +1,79 @@
-from time import sleep
 from turtle import Screen
-from paddle import Paddle
-from ball import Ball
-from scoreboard import Scoreboard
+from myturtle import MyTurtle
+from carmanager import CarManager
+from levelboard import LevelBoard
 import time
-screen = Screen()
-screen.bgcolor("black")
-screen.setup(width=800, height=600)
-screen.title("Pong")
-screen.tracer(0)
 
-paddle_r = Paddle((350, 0))
-paddle_l = Paddle((-350, 0))
-ball_ = Ball()
-score_board = Scoreboard()
+def setup_screen():
+    screen.setup(width=800, height=600)
+    screen.title("Cross the road")
+    screen.tracer(0)
 
-screen.listen()
-screen.onkey(paddle_r.go_up, "Up")
-screen.onkey(paddle_r.go_down, "Down")
-screen.onkey(paddle_l.go_up, "s")
-screen.onkey(paddle_l.go_down, "x")
+def restart_game():
+    global game_on, timy, car_manager, level_board
 
-game_on = True
+    screen.clear()
+    setup_screen()
+
+    timy = MyTurtle()
+    car_manager = CarManager()
+    level_board = LevelBoard()
+
+    screen.listen()
+    screen.onkey(timy.go_up, "Up")
+    screen.onkey(timy.go_down, "Down")
+    screen.onkey(restart_game, "y")
+    screen.onkey(stop_game, "n")
+
+    game_loop(timy, car_manager, level_board)
+
 def stop_game():
     global game_on
     game_on = False
-screen.onkey(stop_game, "q")
+    screen.bye()
 
-try:
+def game_loop(timy, car_manager, level_board):
+    global game_on
+    game_on = True
     while game_on:
-        time.sleep(ball_.move_speed)
+        time.sleep(0.1)
         screen.update()
-        ball_.move()
+        car_manager.create_car()
+        car_manager.move()
 
+        for car in car_manager.all_cars:
+            if car.distance(timy) < 20:
+                game_on = False
+                level_board.lost()
+                level_board.ask_restart()
+                return
 
-        if ball_.ycor() > 280 or ball_.ycor() < -280:
-            ball_.bounce_wall()
+        if timy.finish_line():
+            timy.go_to_start()
+            car_manager.level_up()
+            level_board.level_plus()
+            level_board.update_lavel()
 
-
-        if ball_.distance(paddle_l) < 50 or ball_.distance(paddle_r) < 50:
-            ball_.bounce_paddle()
-
-        if ball_.xcor() > 380:
-            score_board.l_point()
-            ball_.reset_position()
-
-        if ball_.xcor() < -380:
-            score_board.r_point()
-            ball_.reset_position()
-
-        if score_board.r_score == 3:
-            score_board.game_over_r()
-            screen.update()
+        if level_board.level > 3:
             game_on = False
-        elif score_board.l_score == 3:
-            score_board.game_over_l()
-            screen.update()
-            game_on = False
-except Exception as e:
-    print(f"Game ended due to an error: {e}")
+            level_board.win()
+            level_board.ask_restart()
+            return
 
-print("Game over. Closing the screen...")
-time.sleep(5)
-screen.bye()
+screen = Screen()
+setup_screen()
+
+timy = MyTurtle()
+car_manager = CarManager()
+level_board = LevelBoard()
+
+screen.listen()
+screen.onkey(timy.go_up, "Up")
+screen.onkey(timy.go_down, "Down")
+screen.onkey(restart_game, "y")
+screen.onkey(stop_game, "n")
+
+game_loop(timy, car_manager, level_board)
+
+screen.exitonclick()
 
