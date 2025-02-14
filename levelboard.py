@@ -11,7 +11,7 @@ class LevelBoard(Turtle):
     def update_lavel(self):
         self.clear()
         self.goto(-300, 250)
-        self.write(f"Level: {self.level}", align="center", font=("Courier", 20, "normal"))
+        self.write(f"Level: {self.level}", align="center", font=(FONT)
 
     def level_plus(self):
         self.level += 1
