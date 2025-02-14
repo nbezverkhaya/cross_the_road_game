@@ -23,7 +23,7 @@ I created this project while learning Python to practice working with object-ori
 - Python 3.x  
 - `turtle` module (included in Python by default)  
 
-## How to Run ▶️  
+## How to Run
 
 1. Clone this repository or download the source code:  
    ```
@@ -40,7 +40,7 @@ I created this project while learning Python to practice working with object-ori
     ```
 4. Enjoy playing! 🎉
 
-## How to Play
+## How to Play ▶️ 
 
 * Use the arrow keys to move the turtle.
 * Avoid getting hit by the cars.
